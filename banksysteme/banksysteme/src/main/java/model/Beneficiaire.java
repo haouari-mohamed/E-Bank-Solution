@@ -1,14 +1,14 @@
 package model;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "utilisateurs")
-public class Utilisateur {
+@Table(name = "beneficiaires")
+public class Beneficiaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,15 +16,14 @@ public class Utilisateur {
     @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false)
+    private String numeroCompte;
 
     @Column(nullable = false)
-    private String motDePasse;
+    private String banque;
 
-    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    private List<CompteBancaire> compteBancaires;
-
+    @OneToMany(mappedBy = "beneficiaire", cascade = CascadeType.ALL)
+    private List<Transfert> transferts;
 
 
 }

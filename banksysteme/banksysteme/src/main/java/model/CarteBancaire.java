@@ -1,5 +1,4 @@
 package model;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,22 +8,22 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "transactions")
-public class Transaction {
+@Table(name = "cartes_bancaires")
+public class CarteBancaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Date dateHeure;
+    @Column(nullable = false, unique = true)
+    private String numero;
 
     @Column(nullable = false)
-    private double montant;
+    private Date dateExpiration;
 
     @Column(nullable = false)
     private String type;
 
-    private String description;
+    private String raisonBlocage;
 
     @ManyToOne
     @JoinColumn(name = "compte_bancaire_id", nullable = false)
