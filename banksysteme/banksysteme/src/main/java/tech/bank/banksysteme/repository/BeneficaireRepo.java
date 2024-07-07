@@ -1,6 +1,6 @@
-package repository;
+package tech.bank.banksysteme.repository;
 
-import model.Beneficiaire;
+import tech.bank.banksysteme.model.Beneficiaire;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BeneficaireRepo extends JpaRepository<Beneficiaire,Long> {
