@@ -1,11 +1,18 @@
-package model;
+package tech.bank.banksysteme.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
+
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "utilisateurs")
 public class Utilisateur {
@@ -23,8 +30,7 @@ public class Utilisateur {
     private String motDePasse;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<CompteBancaire> compteBancaires;
-
-
 
 }

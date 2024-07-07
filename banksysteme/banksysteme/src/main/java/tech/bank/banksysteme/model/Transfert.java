@@ -1,4 +1,4 @@
-package model;
+package tech.bank.banksysteme.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +25,5 @@ public class Transfert {
     @ManyToOne
     @JoinColumn(name = "beneficiaire_id", nullable = false)
     private Beneficiaire beneficiaire;
-
-
 
 }

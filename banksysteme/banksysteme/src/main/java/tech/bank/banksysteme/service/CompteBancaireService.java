@@ -1,9 +1,9 @@
-package service;
+package tech.bank.banksysteme.service;
 
-import model.CompteBancaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.CompteBancaireRepo;
+import tech.bank.banksysteme.model.CompteBancaire;
+import tech.bank.banksysteme.repository.CompteBancaireRepo;
 
 import java.util.List;
 
@@ -19,10 +19,12 @@ public class CompteBancaireService {
 
     public CompteBancaire getCompteBancaireById(Long id) {
         return compteBancaireRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Compte bancaire not found wth id: " + id));
+                .orElseThrow(() -> new RuntimeException("Compte bancaire not found with id: " + id));
     }
 
     public CompteBancaire createCompteBancaire(CompteBancaire compteBancaire) {
+        compteBancaire.setActive(true);
+        compteBancaire.setClosed(false);
         return compteBancaireRepo.save(compteBancaire);
     }
 
@@ -37,5 +39,29 @@ public class CompteBancaireService {
 
     public void deleteCompteBancaire(Long id) {
         compteBancaireRepo.deleteById(id);
+    }
+
+    public CompteBancaire activateCompte(Long id) {
+        CompteBancaire compteBancaire = getCompteBancaireById(id);
+        if (!compteBancaire.isClosed()) {
+            compteBancaire.setActive(true);
+        }
+        return compteBancaireRepo.save(compteBancaire);
+    }
+
+    public CompteBancaire deactivateCompte(Long id) {
+        CompteBancaire compteBancaire = getCompteBancaireById(id);
+        if (!compteBancaire.isClosed()) {
+            compteBancaire.setActive(false);
+        }
+        return compteBancaireRepo.save(compteBancaire);
+    }
+
+    public CompteBancaire fermerCompte(Long id, String raison) {
+        CompteBancaire compteBancaire = getCompteBancaireById(id);
+        compteBancaire.setRaisonFermeture(raison);
+        compteBancaire.setClosed(true);
+        compteBancaire.setActive(false);
+        return compteBancaireRepo.save(compteBancaire);
     }
 }

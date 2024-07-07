@@ -1,6 +1,6 @@
-package repository;
+package tech.bank.banksysteme.repository;
 
-import model.Transfert;
+import tech.bank.banksysteme.model.Transfert;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TransfertRepo extends JpaRepository<Transfert, Long> {

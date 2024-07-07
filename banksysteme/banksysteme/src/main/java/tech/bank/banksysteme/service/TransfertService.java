@@ -1,13 +1,11 @@
-package service;
+package tech.bank.banksysteme.service;
 
-import model.Transaction;
-import model.Transfert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.TransfertRepo;
+import tech.bank.banksysteme.model.Transfert;
+import tech.bank.banksysteme.repository.TransfertRepo;
 
 import java.util.List;
-
 
 @Service
 public class TransfertService {
@@ -21,7 +19,7 @@ public class TransfertService {
 
     public Transfert getTransfertById(Long id) {
         return transfertRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Transfert not fond with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Transfert not found with id: " + id));
     }
 
     public Transfert createTransfert(Transfert transfert) {
