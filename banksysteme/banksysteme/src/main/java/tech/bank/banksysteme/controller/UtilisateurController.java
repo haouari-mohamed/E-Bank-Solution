@@ -1,8 +1,13 @@
 package tech.bank.banksysteme.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import tech.bank.banksysteme.model.Utilisateur;
+import tech.bank.banksysteme.security.JwtAuth;
 import tech.bank.banksysteme.service.UtilisateurService;
 
 import java.util.List;
@@ -13,6 +18,8 @@ public class UtilisateurController {
 
     @Autowired
     private UtilisateurService utilisateurService;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @GetMapping
     public List<Utilisateur> getAllUtilisateurs() {
@@ -37,6 +44,16 @@ public class UtilisateurController {
     @DeleteMapping("/{id}/delete")
     public void deleteUtilisateur(@PathVariable Long id) {
         utilisateurService.deleteUtilisateur(id);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Utilisateur user) {
+        System.out.println("///////////////////"+user.getPassword()+"//////////////"+user.getUsername());
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+        );
+        String token = JwtAuth.generateToken(user.getUsername());
+        return ResponseEntity.ok(token);
+
     }
     
 }
